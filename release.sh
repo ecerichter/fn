@@ -32,8 +32,8 @@ git tag -f -a "v$version" -m "version v$version"
 git push --tags origin master
 
 # Finally, push docker images
-docker tag $user/$image:latest $user/$image:$version
-docker push $user/$image
+#docker tag $user/$image:latest $user/$image:$version
+#docker push $user/$image
 
 (cd images/fn-test-utils && ./release.sh)
 (cd images/fn-status-checker && ./release.sh)
