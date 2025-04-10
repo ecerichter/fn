@@ -17,7 +17,7 @@ const (
 	TypeDetached = "detached"
 )
 
-var possibleStatuses = [...]string{"delayed", "queued", "running", "success", "error", "cancelled"}
+//var possibleStatuses = [...]string{"delayed", "queued", "running", "success", "error", "cancelled"}
 
 // Call is a representation of a specific invocation of a fn.
 type Call struct {
@@ -92,7 +92,10 @@ type Call struct {
 	TmpFsSize uint32 `json:"tmpfs_size,omitempty" db:"-"`
 
 	// Memory is the amount of RAM this call is allocated.
-	Memory uint64 `json:"memory,omitempty" db:"-"`
+	Memory uint64 `json:"memory" db:"-"`
+
+	// SwapMemory is the amount of RAM this call is allocated.
+	SwapMemory uint64 `json:"swap_memory" db:"-"`
 
 	// CPU as in MilliCPUs where each CPU core is split into 1000 units, specified either
 	// *) milliCPUs as "100m" which is 1/10 of a CPU or

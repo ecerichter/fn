@@ -65,6 +65,7 @@ func FromHTTPFnRequest(app *models.App, fn *models.Fn, req *http.Request) CallOp
 			IdleTimeout: fn.IdleTimeout,
 			TmpFsSize:   0, // TODO clean up this
 			Memory:      fn.Memory,
+			SwapMemory:  fn.SwapMemory,
 			CPUs:        0, // TODO clean up this
 			Config:      buildConfig(app, fn),
 			// TODO - this wasn't really the intention here (that annotations would naturally cascade

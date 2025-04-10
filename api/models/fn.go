@@ -108,6 +108,9 @@ type Fn struct {
 type ResourceConfig struct {
 	// Memory is the amount of memory allotted, in MB.
 	Memory uint64 `json:"memory,omitempty" db:"memory"`
+
+	// Swap memory in MB
+	SwapMemory uint64 `json:"swap_memory,omitempty" db:"memory"`
 	// Timeout is the max execution time for a function, in seconds.
 	// TODO this should probably be milliseconds?
 	Timeout int32 `json:"timeout,omitempty" db:"timeout"`

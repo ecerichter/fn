@@ -143,6 +143,10 @@ type ContainerTask interface {
 	// 0 is unlimited.
 	Memory() uint64
 
+	// SwapMemory determines the max amount of RAM given to the container to use.
+	// 0 is unlimited.
+	SwapMemory() uint64
+
 	// CPUs in milli CPU units
 	CPUs() uint64
 

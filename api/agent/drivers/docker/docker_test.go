@@ -36,6 +36,7 @@ func (f *taskDockerTest) Logger() (stdout, stderr io.Writer)                    
 func (f *taskDockerTest) WriteStat(context.Context, stats.Stat)                      { /* TODO */ }
 func (f *taskDockerTest) Volumes() [][2]string                                       { return [][2]string{} }
 func (f *taskDockerTest) Memory() uint64                                             { return 256 * 1024 * 1024 }
+func (f *taskDockerTest) SwapMemory() uint64                                         { return 0 }
 func (f *taskDockerTest) CPUs() uint64                                               { return 0 }
 func (f *taskDockerTest) FsSize() uint64                                             { return 0 }
 func (f *taskDockerTest) PIDs() uint64                                               { return 0 }

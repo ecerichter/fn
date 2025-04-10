@@ -39,10 +39,10 @@ const (
 // Agent exposes an api to create calls from various parameters and then submit
 // those calls, it also exposes a 'safe' shutdown mechanism via its Close method.
 // Agent has a few roles:
-//	* manage the memory pool for a given server
-//	* manage the container lifecycle for calls
-//	* execute calls against containers
-//	* invoke Start and End for each call appropriately
+//   - manage the memory pool for a given server
+//   - manage the container lifecycle for calls
+//   - execute calls against containers
+//   - invoke Start and End for each call appropriately
 //
 // Overview:
 // Upon submission of a call, Agent will start the call's timeout timer
@@ -970,7 +970,7 @@ func (a *agent) runHot(ctx context.Context, caller slotCaller, call *call, tok R
 	}
 }
 
-//checkSocketDestination verifies that the socket file created by the FDK is valid and permitted - notably verifying that any symlinks are relative to the socket dir
+// checkSocketDestination verifies that the socket file created by the FDK is valid and permitted - notably verifying that any symlinks are relative to the socket dir
 func checkSocketDestination(filename string) error {
 	finfo, err := os.Lstat(filename)
 	if err != nil {
@@ -1156,6 +1156,7 @@ type container struct {
 	env            map[string]string
 	extensions     map[string]string
 	memory         uint64
+	swapMemory     uint64
 	cpus           uint64
 	fsSize         uint64
 	pids           uint64
@@ -1260,6 +1261,7 @@ func newHotContainer(ctx context.Context, evictor Evictor, caller *slotCaller, c
 		env:            env,
 		extensions:     cloneStrMap(call.extensions), // avoid date race
 		memory:         call.Memory,
+		swapMemory:     call.SwapMemory,
 		cpus:           uint64(call.CPUs),
 		fsSize:         cfg.MaxFsSize,
 		pids:           uint64(cfg.MaxPIDs),
@@ -1347,7 +1349,8 @@ func (c *container) Volumes() [][2]string               { return nil }
 func (c *container) WorkDir() string                    { return "" }
 func (c *container) Image() string                      { return c.image }
 func (c *container) EnvVars() map[string]string         { return c.env }
-func (c *container) Memory() uint64                     { return c.memory * 1024 * 1024 } // convert MB
+func (c *container) Memory() uint64                     { return c.memory * 1024 * 1024 }     // convert MB
+func (c *container) SwapMemory() uint64                 { return c.swapMemory * 1024 * 1024 } // convert MB
 func (c *container) CPUs() uint64                       { return c.cpus }
 func (c *container) FsSize() uint64                     { return c.fsSize }
 func (c *container) PIDs() uint64                       { return c.pids }
